@@ -1,4 +1,5 @@
 """Support for Southern Company sensors."""
+
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -13,7 +14,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfEnergy
+from homeassistant.const import CURRENCY_DOLLAR, UnitOfEnergy
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -33,8 +34,7 @@ class SouthernCompanyEntityDescriptionMixin:
 
 @dataclass(frozen=True)
 class SouthernCompanyEntityDescription(
-    SensorEntityDescription,
-    SouthernCompanyEntityDescriptionMixin,
+    SensorEntityDescription, SouthernCompanyEntityDescriptionMixin
 ):
     """Describes Southern Company sensor entity."""
 
@@ -46,6 +46,7 @@ SENSORS: tuple[SouthernCompanyEntityDescription, ...] = (
         device_class=SensorDeviceClass.MONETARY,
         suggested_display_precision=2,
         value_fn=lambda data: data.dollars_to_date,
+        native_unit_of_measurement=CURRENCY_DOLLAR,
     ),
     SouthernCompanyEntityDescription(
         key="total_kwh_used",
@@ -60,6 +61,7 @@ SENSORS: tuple[SouthernCompanyEntityDescription, ...] = (
         name="Average daily cost",
         device_class=SensorDeviceClass.MONETARY,
         value_fn=lambda data: data.average_daily_cost,
+        native_unit_of_measurement=CURRENCY_DOLLAR,
     ),
     SouthernCompanyEntityDescription(
         key="average_daily_usage",
@@ -90,6 +92,7 @@ SENSORS: tuple[SouthernCompanyEntityDescription, ...] = (
         device_class=SensorDeviceClass.MONETARY,
         state_class=SensorStateClass.TOTAL,
         value_fn=lambda data: data.projected_bill_amount_low,
+        native_unit_of_measurement=CURRENCY_DOLLAR,
     ),
     SouthernCompanyEntityDescription(
         key="projected_bill_amount_high",
@@ -97,6 +100,7 @@ SENSORS: tuple[SouthernCompanyEntityDescription, ...] = (
         device_class=SensorDeviceClass.MONETARY,
         state_class=SensorStateClass.TOTAL,
         value_fn=lambda data: data.projected_bill_amount_high,
+        native_unit_of_measurement=CURRENCY_DOLLAR,
     ),
 )
 
@@ -115,8 +119,14 @@ async def async_setup_entry(
             name=f"Account {account.number}",
             manufacturer="Southern Company",
         )
-        for sensor in SENSORS:
-            entities.append(SouthernCompanySensor(account, coordinator, sensor, device))
+
+        # entities.append(SouthernCompanySensor(account, coordinator, sensor, device))
+        entities.extend(
+            [
+                SouthernCompanySensor(account, coordinator, sensor, device)
+                for sensor in SENSORS
+            ]
+        )
 
     async_add_entities(entities)
 

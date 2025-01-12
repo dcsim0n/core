@@ -1,0 +1,32 @@
+rules:
+  # Bronze
+  config-flow: done
+  test-before-configure: done
+  unique-config-entry: done
+  config-flow-test-coverage:
+    status: todo
+    comment: need to create tests for the config flow
+  runtime-data:
+    status: todo
+    comment: still uses hass.data
+  test-before-setup: done
+  appropriate-polling:
+    status: todo
+    comment: Add config options to allow user to set polling interval.
+  entity-unique-id: done
+  has-entity-name:
+    status: todo
+    comment: need to add _has_entity_name = True to SouthernCompanySensor
+  entity-event-setup:
+    status: exempt
+    comment: No events to subscribe to
+  dependency-transparency: done
+  action-setup:
+    status: exempt
+    comment: No services to setup
+  common-modules: done
+  docs-high-level-description: todo
+  docs-installation-instructions: todo
+  docs-removal-instructions: todo
+  docs-actions: todo
+  brands: done
