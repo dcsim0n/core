@@ -1,13 +1,22 @@
 {
   "domain": "southern_company",
   "name": "Southern Company",
-  "codeowners": ["@Lash-L", "@dcsim0n"],
+  "codeowners": [
+    "@Lash-L",
+    "@dcsim0n"
+  ],
   "config_flow": true,
-  "dependencies": ["recorder"],
+  "dependencies": [
+    "recorder"
+  ],
   "documentation": "https://github.com/Lash-L/southern-company-hacs",
   "integration_type": "hub",
   "iot_class": "cloud_polling",
-  "loggers": ["southern_company"],
+  "loggers": [
+    "southern_company"
+  ],
   "quality_scale": "custom",
-  "requirements": ["southern-company-api==0.6.5"]
+  "requirements": [
+    "southern-company-api==0.6.5"
+  ]
 }
