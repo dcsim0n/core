@@ -16,7 +16,7 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CURRENCY_DOLLAR, UnitOfEnergy
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -110,7 +110,7 @@ async def async_setup_entry(
 ) -> None:
     """Set up the Southern Company sensor."""
 
-    coordinator: SouthernCompanyCoordinator = hass.data[DOMAIN][entry.entry_id]
+    coordinator: SouthernCompanyCoordinator = entry.runtime_data
     southern_company_connection = coordinator.api
     entities: list[SouthernCompanySensor] = []
     for account in await southern_company_connection.accounts:
