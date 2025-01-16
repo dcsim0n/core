@@ -6,9 +6,7 @@ rules:
   config-flow-test-coverage:
     status: todo
     comment: need to create tests for the config flow
-  runtime-data:
-    status: todo
-    comment: still uses hass.data
+  runtime-data: done
   test-before-setup: done
   appropriate-polling:
     status: todo

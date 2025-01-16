@@ -23,6 +23,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import SouthernCompanyCoordinator
+from . import SouthernCompanyConfigEntry
 
 
 @dataclass(frozen=True)
@@ -106,7 +107,9 @@ SENSORS: tuple[SouthernCompanyEntityDescription, ...] = (
 
 
 async def async_setup_entry(
-    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+    hass: HomeAssistant,
+    entry: SouthernCompanyConfigEntry,
+    async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the Southern Company sensor."""
 

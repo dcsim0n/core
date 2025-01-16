@@ -24,8 +24,12 @@ from .coordinator import SouthernCompanyCoordinator
 PLATFORMS = [Platform.SENSOR]
 failures: dict[str, float] = {}
 
+type SouthernCompanyConfigEntry = ConfigEntry[SouthernCompanyCoordinator]
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+
+async def async_setup_entry(
+    hass: HomeAssistant, entry: SouthernCompanyConfigEntry
+) -> bool:
     """Set up Southern Company from a config entry."""
     if entry.entry_id in failures:
         if not time.time() - failures[entry.entry_id] > 600:
@@ -62,7 +66,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     return True
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+async def async_unload_entry(
+    hass: HomeAssistant, entry: SouthernCompanyConfigEntry
+) -> bool:
     """Unload a config entry."""
 
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
