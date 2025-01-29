@@ -8,9 +8,7 @@ rules:
     comment: need to create tests for the config flow
   runtime-data: done
   test-before-setup: done
-  appropriate-polling:
-    status: todo
-    comment: Add config options to allow user to set polling interval.
+  appropriate-polling: done
   entity-unique-id: done
   has-entity-name:
     status: todo
